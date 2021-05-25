@@ -1,6 +1,6 @@
 # Specifies deposit amount to test (in dollars).
 # export BT_DEPOSIT="10000" #@param ["100", "1000", "2000", "10000", "20000", "100000"] {allow-input: true}
-$env:BT_DEPOSIT = "10000"
+$env:BT_DEPOSIT = "100"
 
 # Specifies range of days in each month to test. Default: 1-31.
 # export BT_DAYS="1" #@param ["1", "1-2", "1-7", "1-15", "16-31", "1-31"] {allow-input: true}
@@ -16,7 +16,7 @@ $env:BT_YEARS = "2020"
 
 # Specifies timeframe to use for the test.
 # export BT_PERIOD="M30" #@param ["M1", "M5", "M15", "M30", "H1", "H4", "D1"]
-$env:BT_PERIOD = "M30"
+$env:BT_PERIOD = "H4"
 
 # Specifies spread to test in points. Default: 10.
 # export BT_SPREAD=10 #@param {type:"slider", min:0, max:50, step:1}
@@ -58,14 +58,8 @@ $env:MT_VER = "4.0.0.1320"
 # Run backtest in Docker
 # docker run ea31337/ea-tester run_backtest -e TestEnvelopes -v
 
-# Test 1
+# Test
 $start = Get-Date
-docker run ea31337/ea-tester:EURUSD-2019-DS run_backtest -v -e $env:TEST_EXPERT
-$end = Get-Date
-Write-Output "Start: $start End: $end"
-
-# Test 2
-$start = Get-Date
-docker run ea31337/ea-tester:EURUSD-2020-DS run_backtest -v -e $env:TEST_EXPERT
+docker run -v "C:\temp\metatrader:/opt/results" ea31337/ea-tester run_backtest -v -e $env:TEST_EXPERT
 $end = Get-Date
 Write-Output "Start: $start End: $end"
